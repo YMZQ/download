@@ -1,0 +1,63 @@
+@import './variables.less';
+@import './mixin.less';
+
+html,
+body .app {
+  font-size: 12px;
+  color: #6e768d;
+  font-family: Arial, Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, sans-serif;
+  background-color: #f8f8f8;
+}
+p{
+  margin: 0;
+}
+a {
+  color: #6e768d;
+}
+
+.app-container {
+  padding-bottom: 50px;
+}
+
+@font-face {
+  font-family: 'led';  //重命名字体名
+  src: url('../font/led.ttf');  //引入字体
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #6e768d;
+}
+
+input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #6e768d;
+}
+
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #6e768d;
+}
+
+input::-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #6e768d;
+}
+
+
+.browser {
+  padding-top: 46px !important;
+  box-sizing: border-box;
+}
+
+.router-view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  background: linear-gradient(180deg, #fff, #fff);
+}
