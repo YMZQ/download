@@ -1,8 +1,10 @@
 <template>
   <div class="download  router-view browser">
+    <div class="main">
     <img class="logo" src="@/assets/img/downloadLogo.png" alt="">
-    <p>Wallet on chain</p>
-    <p class="text">woc数据资产管理链上银行</p>
+<!--    <p>Wallet on chain</p>-->
+<!--    <p class="text">woc数据资产管理链上银行</p>-->
+    <img class="Introduction" src="@/assets/img/download.png" alt="">
     <div class="bottom">
       <div class="btn" @click="download(1)">
         <img src="@/assets/img/ios.png" alt="">
@@ -12,6 +14,7 @@
         <img src="@/assets/img/android.png" alt="">
         <span>Android</span>
       </div>
+    </div>
     </div>
     <toBrowser :browser="browser"></toBrowser>
   </div>
@@ -90,24 +93,38 @@ export default {
   background-size: 100% 100%;
   padding-top: 40px;
   box-sizing: border-box;
-
+  position: fixed;
+  left: 0;
+  top: 0;
+.main{
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
   .logo {
     width: 90px;
     height: 125px;
-    margin: 50px auto 50px;
+    margin: 35px auto 34px;
     display: block;
   }
-
+  .Introduction{
+    width: 210px;
+    height: 419px;
+    margin: 0 auto 30px;
+    display: block;
+  }
   .bottom {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    margin-left: -125px;
+    margin: 0 auto;
+    padding-bottom: 20px;
   }
 
   p {
     text-align: center;
-    color: #cb2c29;
+    color: #1678ff;
     font-size: 24px;
   }
   .text{
@@ -116,16 +133,16 @@ export default {
   }
 
   .btn {
-    width: 250px;
-    height: 50px;
-    line-height: 50px;
-    margin: 0 auto 40px;
+    width: 310px;
+    height: 48px;
+    line-height: 48px;
+    margin: 0 auto 15px;
     text-align: center;
-    background-color: #cb2c29;
-    border-radius: 8px;
+    background-color: #1678ff;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
+    border-radius: 24px;
 
     img {
       width: 16px;
