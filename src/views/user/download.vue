@@ -1,18 +1,18 @@
 <template>
   <div class="download  router-view browser">
     <img class="logo" src="@/assets/img/downloadLogo.png" alt="">
-    <p>Wallet on chain</p>
-    <p class="text">woc数据资产管理链上银行</p>
-    <div class="bottom">
-      <div class="btn" @click="download(1)">
-        <img src="@/assets/img/ios.png" alt="">
-        <span>ios</span>
-      </div>
-      <div class="btn" @click="download(2)">
-        <img src="@/assets/img/android.png" alt="">
-        <span>Android</span>
-      </div>
-    </div>
+    <input type="text" @input="toThousands" v-model="number">
+<!--    <div class="bottom">-->
+<!--      <div class="btn" @click="download(1)">-->
+<!--        <img src="@/assets/img/ios.png" alt="">-->
+<!--        <span>ios</span>-->
+<!--      </div>-->
+<!--      <div class="btn" @click="download(2)">-->
+<!--        <img src="@/assets/img/android.png" alt="">-->
+<!--        <span @click="toThousands('100000')">Android</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
     <toBrowser :browser="browser"></toBrowser>
   </div>
 </template>
@@ -29,22 +29,37 @@ export default {
       loading: true,
       iosUrl: '',
       androidUrl: '',
-
+      number:''
     }
   },
   created() {
-    this.getData()
+    // this.getData()
   },
   components: {
     toBrowser
   },
   methods: {
+    toThousands() {
+      let [integer, decimal] = String.prototype.split.call(this.number, '.')
+      integer = (integer || 0).toString()
+      let result = ''
+      console.log(integer)
+
+      while (integer.length > 3) {
+        result = ',' + integer.slice(-3) + result
+        console.log(integer)
+        // integer = integer.slice(0, integer.length - 3)
+      }
+      return false;
+      if (integer) {
+        result = integer + result
+      }
+      console.log(`${result}${decimal ? '.' + decimal : ''}`)
+      return `${result}${decimal ? '.' + decimal : ''}`
+    },
     getData() {
       getAppVersion({ClientType: 'H5'}).then((res) => {
         this.loading = false;
-
-
-
         if (res.respCode == '00000') {
           this.iosUrl = res.iosUpdatePath
           this.androidUrl = res.azUpdatePath
@@ -92,9 +107,9 @@ export default {
   box-sizing: border-box;
 
   .logo {
-    width: 90px;
-    height: 125px;
-    margin: 50px auto 50px;
+    width: 130px;
+    height: 159px;
+    margin: 75px auto 198px;
     display: block;
   }
 
@@ -121,7 +136,13 @@ export default {
     line-height: 50px;
     margin: 0 auto 40px;
     text-align: center;
-    background-color: #cb2c29;
+    background-image: linear-gradient(-48deg,
+    #37d3a0 0%,
+    #37d37c 100%),
+    linear-gradient(#ffffff,
+    #ffffff);
+    background-blend-mode: normal,
+    normal;
     border-radius: 8px;
     color: #fff;
     font-size: 16px;

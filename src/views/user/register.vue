@@ -5,25 +5,20 @@
       <van-field
           v-model="value1"
           name="pattern"
-          placeholder="请输入您的手机号"
-          :rules="[{ pattern, message: '请输入正确的手机号' }]"
+          placeholder="请输入用户名"
+          :rules="[{ pattern, message: '请输入用户名' }]"
       />
-      <van-field
-          v-model="code"
-          type="digit"
-          maxlength="6"
-          placeholder="请输入手机验证码"
-      >
-        <template #button>
-          <v-Code account="17638825741"></v-Code>
-        </template>
-      </van-field>
       <van-field
           v-model="value2"
           name="validator"
           type="password"
-          placeholder="密码必须为6~18位字符，包含数字、字母"
-          :rules="[{ validator, message: '密码必须为6~18位字符，包含数字、字母' }]"
+          placeholder="请输入6位数数字密码"
+          :rules="[{ validator, message: '请输入6位数数字密码' }]"
+      />
+      <van-field
+          v-model="value3"
+          name="asyncValidator"
+          placeholder="请确认密码"
       />
       <van-field
           v-model="value3"
@@ -33,9 +28,10 @@
       <van-button round block native-type="submit">注册</van-button>
       <p>已经是注册用户？ <span @click="login">立即登录</span></p>
     </van-form>
+
     <div class="download">
-<!--      <img src="@/assets/img/dlogo.png" alt="">-->
-      <span>GCEX</span>
+        <img src="@/assets/img/dlogo.png" alt="">
+<!--      <span>GCEX</span>-->
       <span @click="routerTo('/download')">去下载</span>
     </div>
     <v-brower :isBrower="isBrower"></v-brower>
@@ -45,7 +41,6 @@
 <script>
 import vBrower from './v-brower'
 import vCode from '@/components/v-code/v-code'
-
 export default {
   data() {
     return {
@@ -120,22 +115,22 @@ export default {
 
 input::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #bec3d2;
+  color: #c8cddd;
 }
 
 input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #bec3d2;
+  color: #c8cddd;
 }
 
 input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #bec3d2;
+  color: #c8cddd;
 }
 
 input::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #bec3d2;
+  color: #c8cddd;
 }
 
 .router-view {
@@ -149,6 +144,7 @@ input::-ms-input-placeholder {
     letter-spacing: 0px;
     color: #333333;
     text-align: left;
+    margin-bottom: 30px;
   }
 
   .van-cell {
@@ -161,7 +157,7 @@ input::-ms-input-placeholder {
     }
 
     &::after {
-      border-color: #bec3d2;
+      border-color: #c8cddd;
       left: 0;
       right: 0;
     }
@@ -173,16 +169,16 @@ input::-ms-input-placeholder {
     font-size: 14px;
 
     span {
-      color: #c6a174;
+      color: #37d3a0;
     }
   }
 
   .van-button--round {
     margin: 40px 0 110px;
     border-radius: 4px;
-    color: #4e3b18;
+    color: #fefefe;
     font-weight: bold;
-    background-image: linear-gradient(90deg, #e2c685 0%, #d9b36c 100%), linear-gradient(#3875f5, #3875f5);
+    background-color: #37d3a0;
   }
 
 }
@@ -193,17 +189,17 @@ input::-ms-input-placeholder {
   line-height: 45px;
   padding: 0 15px;
   box-sizing: border-box;
-  background-color: #edd5b7;
+  background-color: rgba(55, 211, 160, 0.1);
   position: fixed;
   bottom: 0;
   left: 0;
-  color: #4e3b18;
+  color: rgb(55,211,160);
   font-size: 12px;
   overflow: hidden;
 
   img {
-    width: 28px;
-    height: 28px;
+    width: 96px;
+    height: 21px;
     vertical-align: middle;
     margin-right: 11px;
   }
@@ -212,7 +208,7 @@ input::-ms-input-placeholder {
     &:last-child {
       float: right;
       display: inline-block;
-      border: 1px solid #4e3b18;
+      border: 1px solid rgb(55,211,160);
       height: 24px;
       padding: 0 11px;
       box-sizing: border-box;

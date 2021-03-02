@@ -109,7 +109,7 @@ export default {
 <style lang="less" scoped>
 .code-btn{
 	font-size: 16px;
-	color: #c6a174;
+	color: #37d3a0;
 	.count{
 		color: #a9aeb8;
 	}
