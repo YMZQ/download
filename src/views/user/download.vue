@@ -1,18 +1,16 @@
 <template>
   <div class="download  router-view browser">
     <img class="logo" src="@/assets/img/downloadLogo.png" alt="">
-    <input type="text" @input="toThousands" v-model="number">
-<!--    <div class="bottom">-->
-<!--      <div class="btn" @click="download(1)">-->
-<!--        <img src="@/assets/img/ios.png" alt="">-->
-<!--        <span>ios</span>-->
-<!--      </div>-->
-<!--      <div class="btn" @click="download(2)">-->
-<!--        <img src="@/assets/img/android.png" alt="">-->
-<!--        <span @click="toThousands('100000')">Android</span>-->
-<!--      </div>-->
-<!--    </div>-->
-
+    <div class="bottom">
+      <div class="btn" @click="download(1)">
+        <img src="@/assets/img/ios.png" alt="">
+        <span>ios</span>
+      </div>
+      <div class="btn" @click="download(2)">
+        <img src="@/assets/img/android.png" alt="">
+        <span @click="toThousands('100000')">Android</span>
+      </div>
+    </div>
     <toBrowser :browser="browser"></toBrowser>
   </div>
 </template>
@@ -39,24 +37,6 @@ export default {
     toBrowser
   },
   methods: {
-    toThousands() {
-      let [integer, decimal] = String.prototype.split.call(this.number, '.')
-      integer = (integer || 0).toString()
-      let result = ''
-      console.log(integer)
-
-      while (integer.length > 3) {
-        result = ',' + integer.slice(-3) + result
-        console.log(integer)
-        // integer = integer.slice(0, integer.length - 3)
-      }
-      return false;
-      if (integer) {
-        result = integer + result
-      }
-      console.log(`${result}${decimal ? '.' + decimal : ''}`)
-      return `${result}${decimal ? '.' + decimal : ''}`
-    },
     getData() {
       getAppVersion({ClientType: 'H5'}).then((res) => {
         this.loading = false;
