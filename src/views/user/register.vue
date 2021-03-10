@@ -3,25 +3,31 @@
     <p class="title">欢迎注册</p>
     <van-form validate-first @failed="onFailed" @submit="onSubmit">
       <van-field
-          v-model="value1"
+          v-model="registerForm.username"
           name="pattern"
           placeholder="请输入用户名"
           :rules="[{ pattern, message: '请输入用户名' }]"
       />
       <van-field
-          v-model="value2"
-          name="validator"
-          type="password"
-          placeholder="请输入6位数数字密码"
-          :rules="[{ validator, message: '请输入6位数数字密码' }]"
+        v-model="registerForm.captcha"
+        type="digit"
+        maxlength="6"
+        :rules="[{ required: true, message: '请输入手机验证码' }]"
+        placeholder="请输入手机验证码"
+      >
+        <template #button>
+          <v-Code :account="registerForm.username" :actionType="'1'"></v-Code>
+        </template>
+      </van-field>
+      <van-field
+        v-model="registerForm.password"
+        name="validator"
+        type="password"
+        placeholder="密码必须为6~18位字符，包含数字、字母"
+        :rules="[{ validator, message: '密码必须为6~18位字符，包含数字、字母' }]"
       />
       <van-field
-          v-model="value3"
-          name="asyncValidator"
-          placeholder="请确认密码"
-      />
-      <van-field
-          v-model="value3"
+          v-model="registerForm.inviteCode"
           name="asyncValidator"
           placeholder="邀请码（选填）"
       />
@@ -30,8 +36,7 @@
     </van-form>
 
     <div class="download">
-        <img src="@/assets/img/dlogo.png" alt="">
-<!--      <span>GCEX</span>-->
+      <img src="@/assets/img/dlogo.png" alt="">
       <span @click="routerTo('/download')">去下载</span>
     </div>
     <v-brower :isBrower="isBrower"></v-brower>
@@ -41,18 +46,29 @@
 <script>
 import vBrower from './v-brower'
 import vCode from '@/components/v-code/v-code'
+import {  register } from 'api/user'
+
 export default {
   data() {
     return {
-      value1: '',
-      value2: '',
-      value3: '',
-      code: '',
       pattern: /^1[0-9]{10,10}$/,
+      registerForm: {
+        username: '',
+        password: '',
+        cpassword: '',
+        inviteCode: '',
+        captcha: '',
+        type: 1,
+        checked: false
+      },
       isBrower: false
     }
   },
   created() {
+    var inviteCode = this.$route.path
+    if( inviteCode&& inviteCode.length > 10) {
+      this.registerForm.inviteCode = inviteCode = inviteCode.replace('/register', "")
+    }
   },
   computed: {},
   components: {
@@ -73,8 +89,24 @@ export default {
       console.log('failed', errorInfo);
     },
     onSubmit() {
-      console.log(123)
+      register(this.registerForm).then((res) => {
+        this.loading = false;
+        if (res.code == 0) {
+          this.$toast({
+            message: '注册成功',
+            duration: 1000,
+          })
+        } else {
+          this.$toast({
+            message: res.msg,
+            duration: 1000,
+          })
+        }
+      }).catch(() => {
+        this.loading = false;
+      });
     },
+
     login() {
       let that = this;
       let flag = 0;//0:ios,1:android

@@ -11,33 +11,7 @@ const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
 // vant theme
 const vantTheme = path.resolve(__dirname, "./src/assets/styles/theme.less")
 
-// // externals
-// const externals = {
-//   vue: 'Vue',
-//   'vue-router': 'VueRouter',
-//   vuex: 'Vuex',
-//   vant: 'vant',
-//   axios: 'axios'
-// }
-// CDN外链，会插入到index.html中
-// const cdn = {
-//   // 开发环境
-//   dev: {
-//     css: [],
-//     js: []
-//   },
-  // 生产环境
-  // build: {
-  //   css: ['https://cdn.jsdelivr.net/npm/vant@2.4.7/lib/index.css'],
-  //   js: [
-  //     'https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js',
-  //     'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
-  //     'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
-  //     'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
-  //     'https://cdn.jsdelivr.net/npm/vant@2.4.7/lib/index.min.js'
-  //   ]
-  // }
-// }
+
 
 module.exports = {
     publicPath: './', // 署应用包时的基本 URL。 vue-router hash 模式使用
@@ -56,8 +30,8 @@ module.exports = {
         },
         proxy: {
             //配置跨域
-            '/abc': {
-                target: "http://www.wocct.io",
+            '/api': {
+                target: "http://192.168.1.184:9100",
                 // ws:true,
                 changOrigin: true
                 // pathRewrite: {

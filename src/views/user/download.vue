@@ -8,7 +8,7 @@
       </div>
       <div class="btn" @click="download(2)">
         <img src="@/assets/img/android.png" alt="">
-        <span @click="toThousands('100000')">Android</span>
+        <span>Android</span>
       </div>
     </div>
     <toBrowser :browser="browser"></toBrowser>
@@ -31,21 +31,21 @@ export default {
     }
   },
   created() {
-    // this.getData()
+    this.getData()
   },
   components: {
     toBrowser
   },
   methods: {
     getData() {
-      getAppVersion({ClientType: 'H5'}).then((res) => {
+      getAppVersion().then((res) => {
         this.loading = false;
-        if (res.respCode == '00000') {
-          this.iosUrl = res.iosUpdatePath
-          this.androidUrl = res.azUpdatePath
+        if (res.code == 0) {
+          this.iosUrl = res.data.ios.url
+          this.androidUrl = res.data.android.url
         } else {
           this.$toast({
-            message: res.respMsg,
+            message: res.msg,
             duration: 1000,
           })
         }
@@ -59,11 +59,14 @@ export default {
         this.browser = true
       } else {
         if (type == 1) {
+          console.log(123213)
           if (this.iosUrl) {
             location.href = this.iosUrl
           }
         } else {
-          if (this.iosUrl) {
+          console.log(this.androidUrl)
+          if (this.androidUrl) {
+            console.log(123123)
             location.href = this.androidUrl
           }
         }

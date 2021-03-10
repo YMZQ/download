@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// import {doSmsCode} from '@/api';
+import { doSmsCode, register } from 'api/user'
 
 export default {
   props: {
@@ -37,48 +37,36 @@ export default {
   methods: {
     doVerificate() {
       if (!this.account) {
-        // this.$message({
-        //   message: this.$i18n.t('请输入手机号码'),
-        //   type: 'warning'
-        // })
+        this.$toast({
+          message: '请输入手机号码',
+          duration: 1000,
+        })
         return;
       }
-      // if (!this.useraccount) {
-      //   this.$message({
-      //     message: this.$i18n.t('message.tuuname'),
-      //     type: 'warning'
-      //   })
-      //   return;
-      // }
-      // if (this.actionType === 'R') {
-      //   if (!this.veriCode) {
-      //     this.$message({
-      //       message: this.$i18n.t('短信类型'),
-      //       type: 'warning'
-      //     })
-      //     return;
-      //   }
-      // }
       this.doSmsCode();
     },
-        async doSmsCode() {
-          // let params = {};
-          // params.account = this.account;
-          // params.useType = this.actionType;
-          // params.token = '';
-          // let res = await doSmsCode(params);
-          // if (res.code == 0) {
-            this.getCode();
-          //   // this.$message({
-          //   //   message: '发送成功',
-          //   //   type: 'success'
-          //   // })
-          // } else {
-          //   // this.$message({
-          //   //   message: '发送失败',
-          //   //   type: 'err'
-          //   // })
-          // }
+         doSmsCode() {
+           let params = {};
+           params.account = this.account;
+           params.useType = this.actionType;
+           params.token = '';
+           doSmsCode(params).then((res) => {
+             this.loading = false;
+             if (res.code == 0) {
+               this.$toast({
+                 message: '发送成功',
+                 duration: 1000,
+               })
+               this.getCode();
+             } else {
+               this.$toast({
+                 message: res.msg,
+                 duration: 1000,
+               })
+             }
+           }).catch(() => {
+             this.loading = false;
+           });
         },
         // 验证码倒计时60s
         getCode() {
